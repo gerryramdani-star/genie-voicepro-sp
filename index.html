@@ -4,12 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Genie Voice Studio Pro</title>
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/gerryramdani-star/genie-voicepro-sp/refs/heads/main/asset/favicon%20Genie%20Voice.png">
     <!-- Tailwind CSS untuk styling cepat dan modern -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Google: Inter untuk tampilan bersih -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     
     <style>
+        /* CSS KHUSUS: Menyembunyikan Scrollbar */
+        html, body {
+            scrollbar-width: none; /* Untuk Firefox */
+            -ms-overflow-style: none; /* Untuk IE dan Edge */
+        }
+        
+        body::-webkit-scrollbar {
+            display: none; /* Untuk Chrome, Safari, dan Opera */
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: #0f172a; /* Slate 900 */
@@ -78,44 +89,46 @@
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center overflow-hidden relative selection:bg-purple-500 selection:text-white">
+<!-- Mengubah overflow-hidden menjadi overflow-x-hidden dan min-h-screen agar bisa discroll jika konten panjang di layar kecil -->
+<body class="min-h-screen flex flex-col items-center justify-center overflow-x-hidden relative selection:bg-purple-500 selection:text-white py-10 sm:py-0">
 
-    <!-- Elemen Dekorasi Latar Belakang (Blobs Bercahaya) -->
-    <div class="absolute top-0 -left-4 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
-    <div class="absolute top-0 -right-4 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
-    <div class="absolute -bottom-8 left-20 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
+    <!-- Elemen Dekorasi Latar Belakang (Blobs Bercahaya) - Ukuran Responsif (w-48 di mobile, w-72 di desktop) -->
+    <div class="absolute top-0 -left-4 w-48 h-48 md:w-72 md:h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
+    <div class="absolute top-0 -right-4 w-48 h-48 md:w-72 md:h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
+    <div class="absolute -bottom-8 left-10 md:left-20 w-48 h-48 md:w-72 md:h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
 
-    <!-- Kontainer Utama -->
-    <div class="relative z-10 w-full max-w-md px-6">
+    <!-- Kontainer Utama - Padding responsif px-4 untuk mobile -->
+    <div class="relative z-10 w-full max-w-md px-4 sm:px-6">
         
         <!-- ================= HALAMAN LOGIN ================= -->
-        <div id="login-card" class="glass-card rounded-2xl p-8 transition-transform duration-300">
-            <div class="text-center mb-8">
+        <!-- Padding responsif p-6 untuk mobile, p-8 untuk desktop -->
+        <div id="login-card" class="glass-card rounded-2xl p-6 sm:p-8 transition-transform duration-300 w-full">
+            <div class="text-center mb-6 sm:mb-8">
                 <!-- Icon Kecil untuk Login -->
                 <div class="mx-auto mb-4 w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center ring-1 ring-white/20">
                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
                 </div>
-                <h2 class="text-2xl font-bold text-white tracking-wide">Selamat Datang</h2>
-                <p class="text-gray-400 text-sm mt-1">Silakan masuk untuk menggunakan tools GENIE</p>
+                <h2 class="text-xl sm:text-2xl font-bold text-white tracking-wide">Selamat Datang</h2>
+                <p class="text-gray-400 text-xs sm:text-sm mt-1">Silakan masuk untuk menggunakan tools GENIE</p>
             </div>
 
             <form onsubmit="handleLogin(event)" class="space-y-4">
                 <div>
                     <label class="block text-xs font-medium text-gray-400 mb-1 ml-1 uppercase tracking-wider">Username</label>
-                    <input type="text" id="username" required class="w-full px-4 py-3 rounded-xl bg-slate-800/50 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" placeholder="Masukkan username">
+                    <input type="text" id="username" required class="w-full px-4 py-3 rounded-xl bg-slate-800/50 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm sm:text-base" placeholder="Masukkan username">
                 </div>
                 
                 <div>
                     <label class="block text-xs font-medium text-gray-400 mb-1 ml-1 uppercase tracking-wider">Password</label>
-                    <input type="password" id="password" required class="w-full px-4 py-3 rounded-xl bg-slate-800/50 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" placeholder="••••••••">
+                    <input type="password" id="password" required class="w-full px-4 py-3 rounded-xl bg-slate-800/50 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm sm:text-base" placeholder="••••••••">
                 </div>
 
                 <!-- Tempat Pesan Error -->
                 <p id="error-message" class="hidden text-red-400 text-xs text-center font-medium bg-red-500/10 py-2 rounded-lg border border-red-500/20"></p>
 
-                <button type="submit" class="w-full mt-6 py-3 px-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-semibold rounded-xl shadow-lg shadow-blue-500/30 transform transition hover:-translate-y-0.5 focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 focus:ring-offset-gray-900">
+                <button type="submit" class="w-full mt-6 py-3 px-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-semibold rounded-xl shadow-lg shadow-blue-500/30 transform transition hover:-translate-y-0.5 focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 focus:ring-offset-gray-900 text-sm sm:text-base">
                     Masuk
                 </button>
             </form>
@@ -124,7 +137,8 @@
         </div>
 
         <!-- ================= HALAMAN AKSES (Awalnya Hidden) ================= -->
-        <div id="access-card" class="glass-card rounded-2xl p-8 text-center hidden fade-in">
+        <!-- Padding responsif p-6 untuk mobile, p-8 untuk desktop -->
+        <div id="access-card" class="glass-card rounded-2xl p-6 sm:p-8 text-center hidden fade-in w-full">
             
             <!-- Icon Utama -->
             <div class="mx-auto mb-6 w-16 h-16 rounded-3xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-2xl shadow-cyan-500/30 ring-1 ring-white/20">
@@ -138,21 +152,21 @@
             </div>
 
             <!-- Headline -->
-            <h1 class="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-100 to-purple-200 mb-2 tracking-tight">
+            <!-- Ukuran font responsif: text-2xl di mobile, text-4xl di desktop -->
+            <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-100 to-purple-200 mb-2 tracking-tight">
                 GENIE VOICE
             </h1>
-            <h2 class="text-xl md:text-2xl font-semibold text-white mb-4 tracking-widest uppercase text-opacity-80">
+            <h2 class="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-8 tracking-widest uppercase text-opacity-80">
                 STUDIO PRO
             </h2>
 
             <!-- Deskripsi Singkat -->
-            <p class="text-gray-400 mb-8 text-sm leading-relaxed">
+            <p class="text-gray-400 mb-8 text-xs sm:text-sm leading-relaxed">
                 Platform profesional untuk pengolahan suara berbasis AI. Jernih, Cepat, dan Modern.
             </p>
 
             <!-- Tombol Aksi -->
-            <!-- Menambahkan target="_blank" agar link terbuka di tab baru -->
-            <a href="https://gemini.google.com/share/7d7f93ac8da8" target="_blank" class="group relative inline-flex items-center justify-center px-8 py-3 font-semibold text-white transition-all duration-200 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full hover:from-blue-500 hover:to-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 focus:ring-offset-gray-900 shadow-lg shadow-blue-500/30 w-full">
+            <a href="https://gemini.google.com/share/7d7f93ac8da8" target="_blank" class="group relative inline-flex items-center justify-center px-6 py-3 font-semibold text-white transition-all duration-200 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full hover:from-blue-500 hover:to-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 focus:ring-offset-gray-900 shadow-lg shadow-blue-500/30 w-full text-sm sm:text-base">
                 <span class="mr-2">Akses Tools Sekarang</span>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
